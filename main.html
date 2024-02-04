@@ -60,15 +60,15 @@
 <div id="app">
   <div class="vid-container">
     <video id="meditationVideo" width="640" height="360" controls>
-      <source src="video/beach.mp4" type="video/mp4">
+      <source id="videoSource" src="video/beach.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
   </div>
 
   <div class="player-container">
     <div class="sound-picker">
-      <button onclick="changeAudio('beach.mp3')">Meditation-A</button>
-      <button onclick="changeAudio('rain.mp3')">Meditation-B</button>
+      <button onclick="changeMeditation('Meditation-A')">Meditation-A</button>
+      <button onclick="changeMeditation('Meditation-B')">Meditation-B</button>
     </div>
     <audio id="meditationAudio" controls>
       <source id="audioSource" src="Sounds/beach.mp3" type="audio/mp3">
@@ -88,15 +88,23 @@
 </div>
 
 <script>
-  let audio = document.getElementById("meditationAudio");
   let video = document.getElementById("meditationVideo");
+  let videoSource = document.getElementById("videoSource");
+  let audio = document.getElementById("meditationAudio");
   let audioSource = document.getElementById("audioSource");
   let display = document.getElementById("display");
   let timer;
   let timeRemaining;
 
-  function changeAudio(fileName) {
-    audioSource.src = `Sounds/${fileName}`;
+  function changeMeditation(meditationType) {
+    if (meditationType === 'Meditation-A') {
+      videoSource.src = 'video/beach.mp4';
+      audioSource.src = 'Sounds/beach.mp3';
+    } else if (meditationType === 'Meditation-B') {
+      videoSource.src = 'video/rain.mp4';
+      audioSource.src = 'Sounds/rain.mp3';
+    }
+    video.load();
     audio.load();
   }
 
